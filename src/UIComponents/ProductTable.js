@@ -12,7 +12,7 @@ class ProductTable extends React.Component {
         var pdata = this.props.ptprops.jsonData;
         var stateVars = this.props.ptprops.stateVars;
         var rowsByCats = {};
-        var rowsByCatsFiltered = {};
+        //var rowsByCatsFiltered = {};
 
         pdata.forEach(function(item, index, array) {
             //console.log(item, index);

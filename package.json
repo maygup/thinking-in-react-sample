@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@rajatsehgal/add-to-home-screen": "0.0.7",
     "eslint": "^4.0.0",
     "jshint": "^2.9.4",
+    "little-loader": "^0.2.0",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-https-redirect": "^1.0.9",
+    "react-load-script": "0.0.4"
   },
   "devDependencies": {
     "eslint-plugin-react": "^7.1.0",
