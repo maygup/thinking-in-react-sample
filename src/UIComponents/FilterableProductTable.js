@@ -3,6 +3,17 @@ import SearchBar from './SearchBar'
 import ProductTable from './ProductTable'
 
 class FilterableProductTable extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            filterText: "",
+            inStockOnly: false
+        };
+
+        this.handleUpdateCheckboxStateChange = this.handleUpdateCheckboxStateChange.bind(this);
+        this.handleUpdateSearchboxTextChange = this.handleUpdateSearchboxTextChange.bind(this);
+    }
+
     render() {
         var response = [
             {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
@@ -13,12 +24,32 @@ class FilterableProductTable extends React.Component {
             {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
         ];
         var apiData = response;
+        var productTableProps = {
+            jsonData: apiData,
+            stateVars: this.state
+        };
         return (
             <div>
-                <SearchBar />
-                <ProductTable products={apiData}/>
+                <SearchBar 
+                    stateVars={this.state} 
+                    updateCheckboxState={this.handleUpdateCheckboxStateChange} 
+                    updateSearchboxText={this.handleUpdateSearchboxTextChange}/>
+                <ProductTable 
+                    ptprops={productTableProps}/>
             </div>
         );
+    }
+
+    handleUpdateCheckboxStateChange(check) {
+        this.setState({
+            inStockOnly: check
+        });
+    }
+
+    handleUpdateSearchboxTextChange(text) {
+        this.setState({
+            filterText: text
+        });
     }
 }
 

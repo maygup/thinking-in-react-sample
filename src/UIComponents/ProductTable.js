@@ -9,8 +9,10 @@ class ProductTable extends React.Component {
             width: "20%"
         };
 
-        var pdata = this.props.products;
+        var pdata = this.props.ptprops.jsonData;
+        var stateVars = this.props.ptprops.stateVars;
         var rowsByCats = {};
+        var rowsByCatsFiltered = {};
 
         pdata.forEach(function(item, index, array) {
             //console.log(item, index);
@@ -22,22 +24,33 @@ class ProductTable extends React.Component {
             productdata.name = item.name;
             productdata.price = item.price;
             productdata.stocked = item.stocked;
+            
+            if(stateVars.inStockOnly && item.stocked === false) {
+                return;
+            }
+
+            if(item.name.includes(stateVars.filterText) === false) {
+                return;
+            }
 
             rowsByCats[item.category].push(
                 <ProductRow product={productdata} />
             );
         });
 
-        var rows = [];
-        var categories = Object.getOwnPropertyNames(rowsByCats);
+        let rows = [];
+        let categories = Object.getOwnPropertyNames(rowsByCats);
 
         categories.forEach(function(item, index, array) {
-            rows.push(
-                <ProductCategoryRow category={item} />
-            );
-            rowsByCats[item].forEach(function(item, index, array){
-                rows.push(item);
-            });
+            if(rowsByCats[item].length > 0) {
+                rows.push(
+                    <ProductCategoryRow category={item} />
+                );
+
+                rowsByCats[item].forEach(function(item, index, array){
+                    rows.push(item);
+                });
+            }
         });
 
         var tableHeader = <tr>
